@@ -164,6 +164,9 @@ void BS::App::ContentStorage::scan_cached_blobs() {
 
     m_cached_blobs.clear();
 
+    if (!std::filesystem::exists(blobs_dir()))
+        return;
+
     for (auto const& fs_entry : std::filesystem::directory_iterator(blobs_dir())) {
         if (fs_entry.is_regular_file()) {
             m_cached_blobs.insert(
